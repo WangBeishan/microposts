@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.beishan.microposts.mapper.MicropostMapper">
+    <resultMap id="Micropost" type="Micropost">
+        <id column="id" property="id" javaType="Long"></id>
+        <result column="text" property="text" javaType="String"></result>
+        <result column="user_id" property="userId" javaType="Long"></result>
+        <result column="crt_time" property="crtTime" javaType="Date"></result>
+    </resultMap>
+
+    <!--插入博文-->
+    <insert id="insert" parameterType="cf.beishan.microposts.entity.Micropost"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into micropost values (#{id}, #{text}, #{userId), NOW())
+    </insert>
+    
+    <!--刪除博文-->
+</mapper>

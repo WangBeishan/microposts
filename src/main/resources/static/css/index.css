@@ -1,0 +1,88 @@
+
+.header {
+    background-color: white;
+    padding: 10px;
+}
+
+.navbar-default {
+    overflow: hidden;
+    background-color: rgb(233, 233, 233);
+    border: gainsboro solid 2px;
+    border-radius: 5px;
+}
+
+.home-href {
+    float: left;
+    padding: 15px 15px;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: right;
+    padding: 15px 5px;
+}
+
+li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: rgb(87, 87, 87);
+    display: inline;
+}
+
+a:hover {
+    color: black;
+}
+
+li a:link {
+    color: gray;
+    display: inline;
+    padding: 15px;
+}
+
+.master-page {
+    text-align: center;
+    width: 80%;
+    height: auto;
+    background-color: rgb(233, 233, 233);
+    margin: 2%;
+    margin-left: 6%;
+    padding: 40px;
+    border-radius: 3px;
+}
+
+.h1-size {
+    font-size: 50px;
+}
+
+.signup-style {
+    background-color: rgb(16, 194, 16);
+    font-size: 30px;
+    margin: 5%;
+    padding: 5px;
+    width: 10%;
+    border-radius: 5px;
+    margin-left: 45%;
+    display: block;
+    color: gray;
+}
+
+
+.footer {
+    margin: 6%;
+    margin-top: 3%;
+    border-width: 80%;
+    height: 30px;
+
+}

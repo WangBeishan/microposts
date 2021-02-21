@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/microposts
+    username: root
+    password: root
+    driver-class-namme: com.mysql.jdbc.Driver
+  application:
+    name: server-home
+  thymeleaf:
+    prefix:classpath:/templates/
+    cache：false
+  resources:
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/templates/
+  session:
+    timeout: 1800
+    store-type: redis
+    redis:
+      namespace: "spring:session"
+      flush-mode: IMMEDIATE
+      cleanup-cron: "0 * * * * *"
+
+mybatis:
+  type-aliases-package: cf.beishan.microposts.entity

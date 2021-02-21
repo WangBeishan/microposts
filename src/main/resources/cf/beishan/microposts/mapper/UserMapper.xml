@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.beishan.microposts.mapper.UserMapper">
+    <resultMap id="user" type="User">
+        <id column="id" property="id" javaType="Long"></id>
+        <result column="name" property="name" javaType="String"></result>
+        <result column="gmail" property="gmail" javaType="String"></result>
+        <result column="password" property="password" javaType="String"></result>
+        <result column="crt_time" property="crtTime" javaType="Date"></result>
+    </resultMap>
+
+    <!--插入新用戶-->
+    <insert id="insert" parameterType="cf.beishan.microposts.entity.User"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into user values (#{id}, #{name}, #{gmail}, #{password}, NOW())
+    </insert>
+
+    <!--根據id獲取用戶-->
+    <select id="selectById" parameterType="Long" resultMap="user" resultType="User">
+        select * from user where id=#{id}
+    </select>
+
+    <!--根據郵箱獲取用戶-->
+    <select id="selectByEmail" resultType="User" resultMap="user" parameterType="String">
+        select * from user where gmail=#{gmail}
+    </select>
+
+    <!--獲取所有用戶-->
+    <select id="selectAll" resultMap="user" resultType="User">
+        select * from user
+    </select>
+
+    <!--更新用戶信息-->
+    <update id="update" parameterType="cf.beishan.microposts.entity.User">
+        update user set name=#{name}, gmail=#{gmail}, password=#{password}, crt_time=NOW() where id=#{id}
+    </update>
+
+    <!--刪除用戶-->
+    <delete id="delete" parameterType="Long">
+        delete from user where id=#{id}
+    </delete>
+</mapper>

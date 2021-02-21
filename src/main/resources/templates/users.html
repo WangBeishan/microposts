@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="resources/static/css/users.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div>
+    <h1>所有用戶</h1>
+    <ol type="none" style="list-style-type: none;">
+        <li></li>
+    </ol>
+</div>
+
+<script>
+
+$(document).ready(function(){
+    $.getJSON("/users", function(result) {
+        $(result).each(function() {
+            $("li").append(this.id + " ： " + this.name + "<br>");
+        });
+    });
+});
+
+</script>
+
+</body>
+
+</html>
