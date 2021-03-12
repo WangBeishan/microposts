@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>users</title>
@@ -11,22 +12,16 @@
 
 <div>
     <h1>所有用戶</h1>
-    <ol type="none" style="list-style-type: none;">
-        <li></li>
+    <ol th:each="user:${usersPageInfo.getList()}">
+        <li th:text="${user.name}"></li>
+    </ol>
+
+    <ol style="list-style-type: none">
+        <li th:if="${usersPageInfo.hasNextPage}">
+            <a th:href="'/users?pageNum=' + ${usersPageInfo.nextPage}">-></a>
+        </li>
     </ol>
 </div>
-
-<script>
-
-$(document).ready(function(){
-    $.getJSON("/users", function(result) {
-        $(result).each(function() {
-            $("li").append(this.id + " ： " + this.name + "<br>");
-        });
-    });
-});
-
-</script>
 
 </body>
 

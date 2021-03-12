@@ -19,5 +19,11 @@ spring:
       flush-mode: IMMEDIATE
       cleanup-cron: "0 * * * * *"
 
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
 mybatis:
   type-aliases-package: cf.beishan.microposts.entity
