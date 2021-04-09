@@ -2,19 +2,12 @@ package cf.beishan.microposts.service;
 
 import cf.beishan.microposts.entity.User;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface UserService {
 
-    void addUser(User user);
+    String register(String username, String email, String password);
 
-    void updateUser(User user);
-
-    User getUserById(Long id);
-
-    User getUserByEmail(String email);
-
-    void deleteUser(Long id);
-
-    List<User> getAllUser();
+    String login(String email, String password, HttpSession session);
 }

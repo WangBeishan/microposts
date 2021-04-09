@@ -11,4 +11,6 @@ public interface MicropostService {
     Micropost deleteMicropost(Long id);
 
     List<Micropost> getAllMP();
+
+    List<Micropost> getByUserId(Long id);
 }

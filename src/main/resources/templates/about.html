@@ -1,13 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
     <title>一個小圈子</title>
+    <meta charset="UTF-8">
+    <link href="/css/index.css" rel="stylesheet" style="text/css">
 </head>
 
 <body>
-    <h1>測試,這裏還未寫好</h1>
-    <h2>關於頁</h2>
+
+<div th:replace="header :: header"></div>
+
+<div class="container" id="pome">
+    <h1>關於我</h1>
+    <p>一個正在學習編程的小白，希望能做點有意思的東西出來。</p>
+
+    <h1>關於這個項目</h1>
+    <p>
+        在學習了Java基礎還有SpringBoot框架等一些知識后，一直在尋找一個能練手的小項目，有幸認識到棟哥（棟哥並不認識我），
+        一位不一樣的人。<br>
+        而這個項目也是<a href="https://liuyandong.com/">棟哥</a>所建，我只是用自己所學的知識的
+        一點拙劣復刻。這裏是項目原版地址<a href="https://lmzdx.net">綠帽子大學。</a><br>
+        還有許多的功能沒有實現，比如關注、隨機顯示博文、加密（是的，現在的帳號密碼咩有加密...還沒學）、Markdown格式的支持。<br>
+        先挖個坑，後續滿滿填（如果能的話）<br>
+        繼續學習吧！
+    </p>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
 </body>
 
 </html>

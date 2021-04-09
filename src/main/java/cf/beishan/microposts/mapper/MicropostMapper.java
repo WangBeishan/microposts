@@ -1,7 +1,6 @@
 package cf.beishan.microposts.mapper;
 
 import cf.beishan.microposts.entity.Micropost;
-import cf.beishan.microposts.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,4 +13,6 @@ public interface MicropostMapper {
     void deleteMp(Long id);
 
     List<Micropost> selectAll();
+
+    List<Micropost> getByUserId(Long id);
 }

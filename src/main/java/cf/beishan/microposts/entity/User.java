@@ -1,13 +1,12 @@
 package cf.beishan.microposts.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class User {
 
     private Long id;
     private String name;
-    private String gmail;
+    private String email;
     private String password;
     private Date crtTime;
 
@@ -20,11 +19,11 @@ public class User {
     }
 
     public String getGmail() {
-        return gmail;
+        return email;
     }
 
     public void setGmail(String gmail) {
-        this.gmail = gmail;
+        this.email = gmail;
     }
 
     public String getPassword() {

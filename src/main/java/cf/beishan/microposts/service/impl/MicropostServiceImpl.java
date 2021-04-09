@@ -28,4 +28,9 @@ public class MicropostServiceImpl implements MicropostService {
     public List<Micropost> getAllMP() {
         return mapper.selectAll();
     }
+
+    @Override
+    public List<Micropost> getByUserId(Long id) {
+        return mapper.getByUserId(id);
+    }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>一個小圈子</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/css/index.css" rel="stylesheet" style="text/css">
+</head>
+
+<body>
+
+<div th:replace="header :: header"></div>
+
+<div>
+    <aside>
+        <section>
+            <h1>
+                <img src="/images/images.jpeg" width="80" height="80">
+                <p th:text="${user.name}"></p>
+            </h1>
+        </section>
+    </aside>
+
+    <div>
+        <h3 th:text="Microposts"></h3>
+        <ol>
+            <li th:each="micropost : ${microposts}">
+                <a th:href="@{'/users/' + ${user.id}}">
+                    <img src="/images/images.jpeg" width="50" height="50">
+                </a>
+                <span>
+                    <a th:href="@{'/users/' + ${user.id}}" th:text="${user.id}"></a>
+                </span>
+                <span>
+                    <p th:text="${micropost.text}"></p>
+                </span>
+                <span th:text="'Released before ' + ${#dates.format(micropost.crtTime, 'M-dd') }"></span>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<nav class="navbar navbar-default" th:fragment="header">
+    <div class="container-fluid">
+        <div>
+            <a class="navbar-brand" th:href="@{/}">小圈子</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul>
+                <li th:if="${user} != null">
+                    <a th:href="@{/signout}">退出登錄</a>
+                </li>
+                <li th:if="${user} == null">
+                    <a th:href="@{/login}">登錄賬戶</a>
+                </li>
+                <li>
+                    <a th:href="@{/help}">網站幫助</a>
+                </li>
+                <li th:if="${user} != null" >
+                    <a th:href="@{/users}">用戶列表</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+</body>
+
+</html>

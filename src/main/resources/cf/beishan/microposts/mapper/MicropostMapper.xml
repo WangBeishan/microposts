@@ -4,21 +4,26 @@
 <mapper namespace="cf.beishan.microposts.mapper.MicropostMapper">
     <resultMap id="micropost" type="Micropost">
         <id column="id" property="id" javaType="Long"></id>
-        <result column="content" property="text" javaType="String"></result>
         <result column="user_id" property="userId" javaType="Long"></result>
+        <result column="content" property="text" javaType="String"></result>
         <result column="crt_time" property="crtTime" javaType="Date"></result>
     </resultMap>
 
     <!--插入博文-->
     <insert id="insert" parameterType="cf.beishan.microposts.entity.Micropost"
             keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-        insert into micropost values (#{id}, #{text}, #{userId}, NOW())
+        insert into micropost values (#{id}, #{userId}, #{text}, NOW())
     </insert>
     
     <!--刪除博文-->
 
     <!--查詢所有博文-->
     <select id="selectAll" resultType="Micropost" resultMap="micropost">
-        select content from micropost order by id desc
+        select * from micropost order by id desc
+    </select>
+
+    <!--根據用戶id獲取博文-->
+    <select id="getByUserId" parameterType="Long" resultType="Micropost" resultMap="micropost">
+        select * from micropost where user_id=#{user_id} order by id desc
     </select>
 </mapper>

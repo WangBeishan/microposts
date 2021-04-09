@@ -19,6 +19,16 @@ spring:
       flush-mode: IMMEDIATE
       cleanup-cron: "0 * * * * *"
 
+  mail:
+    host: smtp.qq.com
+    username: 305304442@qq.com
+    password: itjzmgaqfiyccafb
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
 pagehelper:
   helper-dialect: mysql
   reasonable: true

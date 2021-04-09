@@ -1,19 +1,21 @@
 package cf.beishan.microposts.controller;
 
-import cf.beishan.microposts.entity.Micropost;
+import cf.beishan.microposts.common.Constant;
+import cf.beishan.microposts.common.ServiceResultEnum;
 import cf.beishan.microposts.entity.User;
 import cf.beishan.microposts.service.impl.MicropostServiceImpl;
 import cf.beishan.microposts.service.impl.UserServiceImpl;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import cf.beishan.microposts.util.Result;
+import cf.beishan.microposts.util.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -24,48 +26,57 @@ public class UserController {
     @Autowired
     MicropostServiceImpl micropostService;
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
+    @PostMapping("/login")
     @ResponseBody
-    public User getById(@PathVariable Long id) {
-        return userService.getUserById(id);
-    }
+    public Result login(@RequestParam("loginName") String loginName,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
 
-    @GetMapping("/users")
-    public String getAllUser(Model model,
-                             HttpServletResponse response,
-                             @RequestParam(required = false, defaultValue = "1", value = "pageNum") Integer pageNum,
-                             @RequestParam(defaultValue = "5", value = "pageSize") Integer pageSize
-                             ) throws IOException {
-
-        PageHelper.startPage(pageNum, pageSize);
-        try {
-            List<User> users = userService.getAllUser();
-            PageInfo<User> pageInfo = new PageInfo<>(users);
-            model.addAttribute("usersPageInfo", pageInfo);
-        } finally {
-            PageHelper.clearPage();
+        if(StringUtils.isEmpty(loginName)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
         }
-        return "users";
+        if(StringUtils.isEmpty(password)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_PASSWORD_NULL.getResult());
+        }
+        String loginResult = userService.login(loginName, password, session);
+        if(ServiceResultEnum.SUCCESS.getResult().equals(loginResult)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult(loginResult);
     }
 
-    @PutMapping("/users/{id}/edit")
-    public void updateUserInfoById(@PathVariable Long id,
-                               @RequestParam("username") String username,
-                               @RequestParam("gmail") String gmail,
-                               @RequestParam("password") String password) {
-        User user = getById(id);
+    @PostMapping("/register")
+    @ResponseBody
+    public Result register(@RequestParam("loginName") String loginName,
+                           @RequestParam("email") String email,
+                           @RequestParam("password") String password) {
 
-        user.setId(user.getId());
-        user.setName(username);
-        user.setGmail(gmail);
-        user.setPassword(password);
+        if(StringUtils.isEmpty(loginName)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
+        }
+        if(StringUtils.isEmpty(email)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_EMAIL_NULL.getResult());
+        }
+        if(StringUtils.isEmpty(password)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_PASSWORD_NULL.getResult());
+        }
 
-        userService.updateUser(user);
+        String registerResult = userService.register(loginName, email, password);
+        if(ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
+            System.out.println(ResultGenerator.genSuccessResult().getResultCode());
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult(registerResult);
+        }
     }
-
-    @DeleteMapping("admin/users/{id}")
-    public void deleteUserById(@PathVariable Long id) {
-        userService.deleteUser(id);
-    }
-
 }

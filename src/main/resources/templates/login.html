@@ -1,35 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link href="/css/index.css" rel="stylesheet" style="text/css">
 </head>
 
 <body>
 
-<nav class="navbar-default">
-    <div>
-        <div class="home-href">
-            <a href="/">小圈子</a>
-        </div>
-
-        <div>
-            <ul>
-                <li>
-                    <a href="/">網站首頁</a>
-                </li>
-                <li>
-                    <a href="/help.html">網站幫助</a>
-                </li>
-                <li>
-                    <a href="/login.html">登錄賬戶</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="header :: header"></div>
 
 <div>
     <form action="/login" method="post">
@@ -41,21 +21,7 @@
     </form>
 </div>
 
-<footer class="footer">
-    <small>
-        本項目由<span style="color:blue"><a href="/about.html">wbs</a></span>邊學邊練跑起來的，僅做測試使用
-    </small>
-    <nav>
-        <ul>
-            <li>
-                <a href="/about.html">關於</a>
-            </li>
-            <li>
-                <a href="/contact.html">聯繫</a>
-            </li>
-        </ul>
-    </nav>
-</footer>
+<div th:replace="footer :: footer"></div>
 
 <script>
 

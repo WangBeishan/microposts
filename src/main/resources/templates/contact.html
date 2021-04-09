@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>一個小圈子</title>
     <meta charset="UTF-8">
+    <link href="/css/index.css" rel="stylesheet" style="text/css">
 </head>
 
 <body>
-    <h1>測試,這裏還未寫好</h1>
-    <h2>聯繫頁</h2>
+
+<div th:replace="header :: header"></div>
+
+<div>
+    <h1>聯繫方式</h1>
+    <p>微信：wbesybdnr</p>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
 </body>
 
 </html>

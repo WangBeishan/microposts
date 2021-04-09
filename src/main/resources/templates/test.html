@@ -13,10 +13,17 @@
 <div th:replace="header :: header"></div>
 
 <div>
-    <h3>先留着...</h3>
+    <p id="test">test</p>
+    <button type="button" onclick="top1()" value="click!"></button>
 </div>
 
 <div th:replace="footer :: footer"></div>
+
+<script>
+    function top1() {
+        document.getElementById("test").innerHTML="11111";
+    }
+</script>
 
 </body>
 
