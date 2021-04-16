@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="/css/index.css" rel="stylesheet" style="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -12,19 +14,54 @@
 <div th:replace="header :: header"></div>
 
 <div>
-    <form action="/login" method="post">
+    <form id="loginForm" method="post">
         <label>please entry E-mail:</label><br>
-        <input type="email" name="email" id="userEmail"><br>
+        <input type="email" name="email"><br>
         <label>please entry password:</label><br>
         <input type="password" name="password"><br>
-        <input type="submit" value="log in">
+        <input type="button" onclick="login1()" value="log in">
     </form>
 </div>
 
 <div th:replace="footer :: footer"></div>
 
 <script>
+    function login1() {
+        var params = $("#loginForm").serialize();
+        var url = '/login';
 
+        $.ajax({
+            type: 'POST',//方法类型
+            url: url,
+            data: params,
+            success: function(result) {
+                if (result.resultCode == 200) {
+                    swal({
+                        title: "登錄成功",
+                        text: "是否跳转至主页?",
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: true
+                    }).then((flag) => {
+                            if (flag) {
+                                window.location.href = '/index';
+                            }
+                        });
+                } else {
+                    swal({
+                        title: result.message,
+                        icon: "error"
+                    });
+                };
+            },
+            error: function () {
+                swal({
+                    title: "操作失敗！",
+                    icon: "error"
+                });
+            }
+        });
+    }
 
 </script>
 

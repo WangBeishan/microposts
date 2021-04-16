@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -38,17 +39,16 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public Result login(@RequestParam("loginName") String loginName,
+    public Result login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         HttpSession session) {
-
-        if(StringUtils.isEmpty(loginName)) {
-            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
+        if(StringUtils.isEmpty(email)) {
+            return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_EMAIL_NULL.getResult());
         }
         if(StringUtils.isEmpty(password)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_PASSWORD_NULL.getResult());
         }
-        String loginResult = userService.login(loginName, password, session);
+        String loginResult = userService.login(email, password, session);
         if(ServiceResultEnum.SUCCESS.getResult().equals(loginResult)) {
             return ResultGenerator.genSuccessResult();
         }
@@ -73,10 +73,14 @@ public class UserController {
 
         String registerResult = userService.register(loginName, email, password);
         if(ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
-            System.out.println(ResultGenerator.genSuccessResult().getResultCode());
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult(registerResult);
         }
+    }
+
+    @GetMapping("/users")
+    public List<User> getAllUser() {
+        return userService.getAllUser();
     }
 }

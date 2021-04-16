@@ -10,4 +10,6 @@ public interface UserService {
     String register(String username, String email, String password);
 
     String login(String email, String password, HttpSession session);
+
+    List<User> getAllUser();
 }

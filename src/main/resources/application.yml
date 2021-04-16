@@ -18,6 +18,7 @@ spring:
       namespace: "spring:session"
       flush-mode: IMMEDIATE
       cleanup-cron: "0 * * * * *"
+  DUBUG: true
 
   mail:
     host: smtp.qq.com

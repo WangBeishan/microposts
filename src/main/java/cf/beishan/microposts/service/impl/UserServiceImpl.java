@@ -36,12 +36,21 @@ public class UserServiceImpl implements UserService {
     public String login(String email, String password, HttpSession session) {
 
         User user = userMapper.selectByEmail(email);
-
-        if(user != null && session != null) {
+        System.out.println("D1");
+        if(user != null && session !=null) {
             session.setAttribute(Constant.USER_SESSION_KEY, user);
             return ServiceResultEnum.SUCCESS.getResult();
         } else {
             return ServiceResultEnum.LOGIN_ERROR.getResult();
         }
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        List<User> users = userMapper.selectAll();
+        if(users != null) {
+            return users;
+        }
+        return null;
     }
 }

@@ -15,7 +15,7 @@
 
 <div>
     <div th:unless="${session.user == null}">
-        <p th:text="username: + ${session.user.username}"></p>
+        <p th:text="'Name:' + ${session.user.name}"></p>
         <p th:text="create time: + ${session.user.crtTime}"></p>
     </div>
 
