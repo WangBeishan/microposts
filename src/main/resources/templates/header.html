@@ -11,16 +11,16 @@
 
         <div class="collapse navbar-collapse">
             <ul>
-                <li th:if="${user} != null">
+                <li th:unless="${session.user} == null">
                     <a th:href="@{/signout}">退出登錄</a>
                 </li>
-                <li th:if="${user} == null">
+                <li th:if="${session.user} == null">
                     <a th:href="@{/login}">登錄賬戶</a>
                 </li>
                 <li>
                     <a th:href="@{/help}">網站幫助</a>
                 </li>
-                <li th:if="${user} != null" >
+                <li th:unless="${session.user} == null" >
                     <a th:href="@{/users}">用戶列表</a>
                 </li>
             </ul>

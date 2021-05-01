@@ -15,7 +15,7 @@
 <div>
     <h1>所有用戶</h1>
     <ol>
-        <li id="users" th:each="user : ${users}">
+        <li id="users" th:each="user : ${tmp}">
             <img src="/images/images.jpeg" height="50" width="50">
             <p th:text="${user.id} + ': ' + ${user.name}"></p>
         </li>
@@ -33,7 +33,7 @@
             type: 'GET',
             url: url,
             success: function(result) {
-                $("#users").html(result);
+
             },
             error: function() {
                 swal({

@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
     public String login(String email, String password, HttpSession session) {
 
         User user = userMapper.selectByEmail(email);
-        System.out.println("D1");
         if(user != null && session !=null) {
             session.setAttribute(Constant.USER_SESSION_KEY, user);
             return ServiceResultEnum.SUCCESS.getResult();
