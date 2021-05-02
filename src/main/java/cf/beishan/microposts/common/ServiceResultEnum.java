@@ -16,7 +16,9 @@ public enum ServiceResultEnum {
 
     LOGIN_ERROR("登錄失敗！"),
 
-    SAME_LOGIN_NAME_EXITS("用戶名已存在！");
+    SAME_LOGIN_NAME_EXITS("用戶名已存在！"),
+
+    ADD_MP_ERROR("添加博文失败");
 
     private String result;
 

@@ -5,7 +5,12 @@
     <title>一個小圈子</title>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="/css/index.css" rel="stylesheet" style="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script src="/js/common.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 
 <body>
@@ -13,21 +18,90 @@
 <!-- 引入頭部 -->
 <div th:replace="header :: header"></div>
 
-<div>
-    <div th:unless="${session.user == null}">
-        <p th:text="'Name:' + ${session.user.name}"></p>
-        <p th:text="'create time:' + ${session.user.crtTime}"></p>
-    </div>
+<div class="container">
+    <div class="row">
+        <div th:unless="${session.user == null}">
 
-    <div th:if="${session.user == null}">
-        register: <a th:href="@{/register}">click me!</a><br>
-        login: <a th:href="@{/login}">click me!</a>
+            <aside class="col-md-4">
+                <section class="user_info">
+                    <a th:href="@{'/users/' + session.user.id}"><img src="/images/images.jpeg" width="50" height="50"></a>
+                    <h1 th:test="${session.user.name}"></h1>
+                </section>
+                <section>
+                    <form id="params" method="post">
+                        <input name="content" type="text" placeholder="Please entry text">
+                        <input type="button" onclick="postMP()" value="Post">
+                    </form>
+                </section>
+            </aside>
+
+            <div class="con-md-8">
+                <h3 th:text="Micropost"></h3>
+                <div id="test"></div>
+            </div>
+        </div>
+
+        <div th:if="${session.user == null}">
+            <table>Register:</table>
+            <a th:href="@{/register}">click me!</a><br>
+            <table>Login:</table>
+            <a th:href="@{/login}">click me!</a>
+        </div>
     </div>
 </div>
 
 <!-- 引入頁腳 -->
 <div class="footer" th:replace="footer :: footer"></div>
 
+
+<script>
+    window.onload = function() {
+        var url = '/getAllMP';
+        var html = "<ol>";
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(result) {
+                $.each(result, function(key, value) {
+                    html += '<li><a href="/users/"' + value.userId + '><img src="/images/images.jpeg" height="50" width="50"></a><p>' + value.userName + '</p><p>' + value.text + '</p></li>';
+                })
+                html += "</ol>";
+                $("#test").append(html);
+            }
+        });
+    }
+
+    function postMP() {
+        var aaaaa = $("#params").serialize();
+        var url = '/addMP';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: aaaaa,
+            success: function(result) {
+                if (result.resultCode == 200) {
+                    swal({
+                        title: "发布成功！",
+                        icon: "success",
+                        timer: 2000
+                    }).then((flag) => {
+                        if(flag) {
+                            window.location.href = '/index';
+                        }
+                    });
+                }
+            },
+            error: function() {
+                swal({
+                    title: "发布失败！",
+                    icon: "error",
+                    timer: 2000
+                });
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

@@ -9,13 +9,16 @@ import cf.beishan.microposts.util.Result;
 import cf.beishan.microposts.util.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -80,7 +83,17 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> getAllUser() {
-        return userService.getAllUser();
+    public String getAllUser(Model model) {
+        List<User> users = userService.getAllUser();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
+    @GetMapping("/signout")
+    public String signout(HttpSession session) throws IOException {
+        if(session != null) {
+            session.removeAttribute(Constant.USER_SESSION_KEY);
+        }
+        return "index";
     }
 }
